@@ -37,7 +37,7 @@ class ProductoList extends Component {
           <div>
             <Producto data={this.state.productos} totalResults={this.state.totalResults} getProductoList={this.getProductoList}/>
             <hr />
-            <h2>Create a Product</h2>
+            <h2>Crear Producto Nuevo</h2>
             <CustomForm 
               requestType="post"
               id={null}

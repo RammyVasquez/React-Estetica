@@ -55,12 +55,12 @@ class ServicioForm extends Component{
                 {...formItemLayout}
             > 
 
-                <Form.Item name="precio" label="precio">
-                    <Input type="number" onChange={this.handleInputChanges} name="precio" value={this.state.precio} placeholder="precio" />
-                </Form.Item>
-
                 <Form.Item name="nombre" label="Nombre">
                     <Input onChange={this.handleInputChanges} value={this.state.nombre} name="nombre" />
+                </Form.Item>
+
+                <Form.Item name="precio" label="precio">
+                    <Input type="number" onChange={this.handleInputChanges} name="precio" value={this.state.precio} />
                 </Form.Item>
 
                 <Form.Item name="imagen" label="imagen">
@@ -68,7 +68,7 @@ class ServicioForm extends Component{
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button onClick={(event) =>{this.handleFormSubmit (this.props.requestType, this.props.id)} } href='/servicio' type="primary" shape="round" htmlType="submit">{this.props.btnText}</Button>
+                    <Button onClick={(event) =>{this.handleFormSubmit (this.props.requestType, this.props.id)} } href='/servicio' type="primary" shape="round" htmlType="submit">Crear{/* {this.props.btnText} */}</Button>
                 </Form.Item>
             </Form>
             </div>

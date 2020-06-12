@@ -35,9 +35,9 @@ class VentaList extends Component {
     render() {
         return(
           <div>
+            <h2>Detalle de venta proporcionado por "VENTAS"</h2>
             <Venta data={this.state.ventas} totalResults={this.state.totalResults} getVentaList={this.getVentaList}/>
-            <hr />
-            <h2>Create a Product</h2>
+            <hr />           
             {/* <FormServicio 
               requestType="post"
               id={null}

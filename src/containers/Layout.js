@@ -26,20 +26,20 @@ const CustomLayout = (props) => {
                 <PageHeader
                     className="site-page-header"
                     title="ESTETICA"
-                    style={{backgroundColor:'rgba(255, 0, 0, 0.4)', border: 0}}                    
+                    style={{backgroundColor:'rgba(67, 254, 154, 1)', border: 0}}                    
                 />
                 <Menu theme="dark" style={{ marginTop: -12}} mode="inline" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1" icon={<BugFilled  />}>
-                        <Link to="/producto">productos</Link>
+                        <Link to="/producto">Productos</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<ScissorOutlined />}>
-                        <Link to="/servicio">servicio</Link>
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<CreditCardFilled  />}>                    
-                        <Link to="/venta">venta</Link>
+                        <Link to="/servicio">Servicio</Link>
                     </Menu.Item>
                     <Menu.Item key="4" icon={<CreditCardFilled  />}>
-                        <Link to="/misVentas">Venta Estetica</Link>
+                        <Link to="/misVentas">Mis ventas</Link>
+                    </Menu.Item>
+                    <Menu.Item key="3" icon={<CreditCardFilled  />}>                    
+                        <Link to="/venta">Dpto Ventas</Link>
                     </Menu.Item>
                     <Menu.Item key="5" icon={<CarOutlined  />}>
                         <Link to="/transporte">Transporte</Link>
