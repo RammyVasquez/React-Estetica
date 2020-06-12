@@ -6,6 +6,7 @@ import {
     CarOutlined,
     CreditCardFilled,
     BugFilled,
+    CalendarFilled
   } from '@ant-design/icons';
 import { Layout, Menu, PageHeader, Breadcrumb } from 'antd';
 
@@ -29,19 +30,22 @@ const CustomLayout = (props) => {
                     style={{backgroundColor:'rgba(67, 254, 154, 1)', border: 0}}                    
                 />
                 <Menu theme="dark" style={{ marginTop: -4}} mode="inline" defaultSelectedKeys={['1']}>
-                    <Menu.Item key="1" icon={<BugFilled  />}>
+                    <Menu.Item key="1" icon={<CalendarFilled />}>
+                        <Link to="/agenda">Agendar cita</Link>
+                    </Menu.Item>
+                    <Menu.Item key="2" icon={<BugFilled  />}>
                         <Link to="/producto">Productos</Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<ScissorOutlined />}>
+                    <Menu.Item key="3" icon={<ScissorOutlined />}>
                         <Link to="/servicio">Servicio</Link>
                     </Menu.Item>
                     <Menu.Item key="4" icon={<CreditCardFilled  />}>
                         <Link to="/misVentas">Mis ventas</Link>
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<CreditCardFilled  />}>                    
+                    <Menu.Item key="5" icon={<CreditCardFilled  />}>                    
                         <Link to="/venta">Dpto Ventas</Link>
                     </Menu.Item>
-                    <Menu.Item key="5" icon={<CarOutlined  />}>
+                    <Menu.Item key="6" icon={<CarOutlined  />}>
                         <Link to="/transporte">Transporte</Link>
                     </Menu.Item>
                 </Menu>

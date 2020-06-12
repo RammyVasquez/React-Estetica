@@ -22,28 +22,26 @@ class CustomForm extends Component{
         })
     }
 
-    handleFormSubmit = () => {
+    PostSubmit = () => {
         debugger;
-        const stock = this.state.stock;
-        const precio = this.state.precio;
         const nombre = this.state.nombre;
+        const stock = this.state.stock;
+        const precio = this.state.precio;        
         const imagen = this.state.imagen
         axios.post('http://estetik.herokuapp.com/api/producto', {
-                    stock: stock,
-                    precio: precio,
-                    nombre: nombre,
-                    imagen: imagen
-                })
-                .then(res => console.log(res))  
-                .catch(error => console.log(error));   
+            nombre: nombre,            
+            stock: stock,
+            precio: precio,     
+            imagen: imagen
+        })
+        .then(res => console.log(res))  
+        .catch(error => console.log(error));   
     }
 
     render(){   
         return (
             <div>
-            <Form 
-                {...formItemLayout}
-            > 
+            <Form {...formItemLayout}> 
                 <Form.Item name="nombre" label="Nombre">
                     <Input onChange={this.handleInputChanges} name="nombre" value={this.state.nombre}/>
                 </Form.Item>
@@ -61,7 +59,7 @@ class CustomForm extends Component{
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button onClick={this.handleFormSubmit} href="/producto" type="primary" shape="round">Crear producto{/* {this.props.btnText} */}</Button>
+                    <Button onClick={this.PostSubmit} href="/producto" type="primary" shape="round">Crear producto{/* {this.props.btnText} */}</Button>
                 </Form.Item>
             </Form>
             </div>

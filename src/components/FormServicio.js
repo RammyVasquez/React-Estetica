@@ -21,7 +21,7 @@ class ServicioForm extends Component{
         })
     }
 
-    handleFormSubmit = () => {
+    PostSubmit = () => {
         debugger;
         const precio = this.state.precio;
         const nombre = this.state.nombre;
@@ -61,7 +61,7 @@ class ServicioForm extends Component{
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button onClick={this.handleFormSubmit} type="primary" shape="round">Crear servicio{/* {this.props.btnText} */}</Button>
+                    <Button onClick={this.PostSubmit} type="primary" shape="round">Crear servicio{/* {this.props.btnText} */}</Button>
                 </Form.Item>
             </Form>
             </div>
