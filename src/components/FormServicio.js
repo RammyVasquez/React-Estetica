@@ -15,60 +15,53 @@ class ServicioForm extends Component{
         nombre: ""
     }
 
-    handleInputChanges = (event) => {
-        let nombre = event.target.nombre;
-        let value = event.target.value;
-        this.setState({[nombre]:value})
-
+    handleInputChanges = event => {
+        this.setState({
+            [event.target.name]:event.target.value
+        })
     }
 
-    handleFormSubmit = (requestType, id) => {
+    handleFormSubmit = () => {
+        debugger;
         const precio = this.state.precio;
         const nombre = this.state.nombre;
         const imagen = this.state.imagen
-        switch ( requestType ){
-            case 'post':
-                return axios.post('http://estetik.herokuapp.com/api/servicio', {
+        axios.post('http://estetik.herokuapp.com/api/servicio', {
                     precio: precio,
                     nombre: nombre,
                     imagen: imagen
                 })
-                .then(res => console.log(res))  
-                .catch(error => console.log(error));
-            case 'put':
-                return axios.put(`http://estetik.herokuapp.com/api/servicio/${id}`, {
-                    precio: precio,
-                    nombre: nombre,
-                    imagen: imagen,
-                })
-                .then(res => console.log(res))
-                .catch(error => console.log(error));
-            default:
-                //nothing
-        }
+                .then(res => {
+                    console.log(res)
+                    axios.get('http://estetik.herokuapp.com/api/servicio')
+                    .then(res => {
+                        const servicios = res.data;
+                        this.setState({servicios});
+                    })
+                }
+                    )  
+                .catch(error => console.log(error));           
     }
 
     render(){   
         return (
             <div>
-            <Form 
-                {...formItemLayout}
-            > 
+            <Form {...formItemLayout} > 
 
                 <Form.Item name="nombre" label="Nombre">
-                    <Input onChange={this.handleInputChanges} value={this.state.nombre} name="nombre" />
+                    <Input onChange={this.handleInputChanges} name="nombre" value={this.state.nombre}/>
                 </Form.Item>
 
                 <Form.Item name="precio" label="precio">
-                    <Input type="number" onChange={this.handleInputChanges} name="precio" value={this.state.precio} />
+                    <Input type="number" onChange={this.handleInputChanges} name="precio" value={this.state.precio}  />
                 </Form.Item>
 
                 <Form.Item name="imagen" label="imagen">
-                    <Input type="file" onChange={this.handleInputChanges} value={this.state.imagen} name="imagen" />
+                    <Input onChange={this.handleInputChanges} name="imagen" value={this.state.imagen}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button onClick={(event) =>{this.handleFormSubmit (this.props.requestType, this.props.id)} } href='/servicio' type="primary" shape="round" htmlType="submit">Crear{/* {this.props.btnText} */}</Button>
+                    <Button onClick={this.handleFormSubmit} type="primary" shape="round">Crear servicio{/* {this.props.btnText} */}</Button>
                 </Form.Item>
             </Form>
             </div>

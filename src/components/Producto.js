@@ -21,7 +21,7 @@ const Producto = (props) => {
             onChange: page => {
                 props.getProductosList(page)
             },
-            pageSize: 5,
+            pageSize: 10,
             total: props.totalResults 
             }}
             dataSource={props.data}

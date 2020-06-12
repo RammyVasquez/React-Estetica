@@ -16,40 +16,26 @@ class CustomForm extends Component{
         nombre: ""
     }
 
-    handleInputChanges = (event) => {
-        let nombre = event.target.nombre;
-        let value = event.target.value;
-        this.setState({[nombre]:value})
-
+    handleInputChanges = event => {
+        this.setState({ 
+            [event.target.name]:event.target.value
+        })
     }
 
-    handleFormSubmit = (requestType, id) => {
+    handleFormSubmit = () => {
+        debugger;
         const stock = this.state.stock;
         const precio = this.state.precio;
         const nombre = this.state.nombre;
         const imagen = this.state.imagen
-        switch ( requestType ){
-            case 'post':
-                return axios.post('http://estetik.herokuapp.com/api/producto', {
+        axios.post('http://estetik.herokuapp.com/api/producto', {
                     stock: stock,
                     precio: precio,
                     nombre: nombre,
                     imagen: imagen
                 })
                 .then(res => console.log(res))  
-                .catch(error => console.log(error));
-            case 'put':
-                return axios.put(`http://estetik.herokuapp.com/api/producto/${id}`, {
-                    stock: stock,
-                    precio: precio,
-                    nombre: nombre,
-                    imagen: imagen,
-                })
-                .then(res => console.log(res))
-                .catch(error => console.log(error));
-            default:
-                //nothing
-        }
+                .catch(error => console.log(error));   
     }
 
     render(){   
@@ -59,7 +45,7 @@ class CustomForm extends Component{
                 {...formItemLayout}
             > 
                 <Form.Item name="nombre" label="Nombre">
-                    <Input onChange={this.handleInputChanges} value={this.state.nombre} name="nombre" />
+                    <Input onChange={this.handleInputChanges} name="nombre" value={this.state.nombre}/>
                 </Form.Item>
             
                 <Form.Item name="stock" label="stock">
@@ -71,11 +57,11 @@ class CustomForm extends Component{
                 </Form.Item>
 
                 <Form.Item name="imagen" label="imagen">
-                    <Input onChange={this.handleInputChanges} value={this.state.imagen} name="imagen" />
+                    <Input onChange={this.handleInputChanges} name="imagen" value={this.state.imagen}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button onClick={(event) =>{this.handleFormSubmit (this.props.requestType, this.props.id)} } href='/producto' type="primary" shape="round" htmlType="submit">Crear{/* {this.props.btnText} */}</Button>
+                    <Button onClick={this.handleFormSubmit} href="/producto" type="primary" shape="round">Crear producto{/* {this.props.btnText} */}</Button>
                 </Form.Item>
             </Form>
             </div>

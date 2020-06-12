@@ -38,11 +38,7 @@ class ServicioList extends Component {
             <Servicio data={this.state.servicios} totalResults={this.state.totalResults} getServicioList={this.getServicioList}/>
             <hr />
             <h2>Crear Servicio Nuevo</h2>
-            <FormServicio 
-              requestType="post"
-              id={null}
-              btnText="Create"
-            />
+            <FormServicio/>
           </div>
         );
     }

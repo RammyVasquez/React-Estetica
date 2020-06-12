@@ -21,7 +21,7 @@ const Servicio = (props) => {
             onChange: page => {
                 props.getServiciosList(page)
             },
-            pageSize: 3,
+            pageSize: 10,
             total: props.totalResults 
             }}
             dataSource={props.data}
