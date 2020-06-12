@@ -28,7 +28,7 @@ const CustomLayout = (props) => {
                     title="ESTETICA"
                     style={{backgroundColor:'rgba(67, 254, 154, 1)', border: 0}}                    
                 />
-                <Menu theme="dark" style={{ marginTop: -12}} mode="inline" defaultSelectedKeys={['1']}>
+                <Menu theme="dark" style={{ marginTop: -4}} mode="inline" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1" icon={<BugFilled  />}>
                         <Link to="/producto">Productos</Link>
                     </Menu.Item>
