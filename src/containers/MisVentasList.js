@@ -36,6 +36,7 @@ class MisVentasList extends Component {
     render() {
         return(
           <div>
+            <h2>Mis ventas realizadas</h2>
             <MisVentas data={this.state.Misventas} totalResults={this.state.totalResults} getMisVentasList={this.getMisVentasList}/>
             <hr />
             {/* <h2>Create a Product</h2> */}

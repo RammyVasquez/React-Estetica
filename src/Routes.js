@@ -7,11 +7,13 @@ import ServicioDetail from './containers/ServicioDetail';
 import VentaList from './containers/VentaList';
 import TransporteList from './containers/TransporteList';
 import MisVentasList from './containers/MisVentasList';
+import AgendaList from './containers/AgendaList';
 
 
 
 const BaseRouter = () => (
     <div>
+        <Route exact path='/agenda' component={AgendaList} />
         <Route exact path='/producto' component={ProductoList} />
         <Route exact path='/producto/:id' component={ProductoDetail} />
         <Route exact path='/servicio' component={ServicioList} />
