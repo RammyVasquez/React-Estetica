@@ -8,6 +8,7 @@ class AgendaList extends Component {
     render() {
         return(
             <div>
+                <h2>Registrar cita nueva</h2>
                 <Agenda/>
             </div>
         );
