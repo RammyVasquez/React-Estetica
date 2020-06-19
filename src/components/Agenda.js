@@ -11,7 +11,7 @@ function horaChange(time, timeString) {
 
 function trsChange(e) {
     console.log(`checked = ${e.target.checked}`);
-  }
+}
 
 const formItemLayout = {
     labelCol: { span: 6 },
@@ -21,7 +21,8 @@ const formItemLayout = {
 class Agenda extends Component {
 
     state = {
-        startDate: new Date()
+        startDate: new Date(),
+        misServicios: []
     };
 
     handleChange = date => {
@@ -30,8 +31,17 @@ class Agenda extends Component {
         });
     };
     
-    render() {
-        
+    componentDidMount() {
+        const urlServicios = 'http://estetik.herokuapp.com/api/servicio';
+        axios.get(urlServicios)
+        .then(res => {
+            this.setState({
+                misServicios: res.data.servicios.data,
+            })
+        })
+    }
+
+    render() {      
         return(
             <div>
                 <Form {...formItemLayout}>
@@ -47,7 +57,7 @@ class Agenda extends Component {
                     </FormItem>
 
                     <FormItem name="servicio" label="Seleccione servicio(s)">
-
+                        {this.state.misServicios.map((item) => <Checkbox key={item.nombre}>{item.nombre} ${item.precio}</Checkbox>)}                      
                     </FormItem>
 
                     <FormItem name="transporte" label="Requiere transporte">
