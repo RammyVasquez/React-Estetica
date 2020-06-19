@@ -1,16 +1,6 @@
 import React from 'react';
 
-import { List, Divider } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-
-
-
-const IconText = ({ icon, text }) => (
-  <span>
-    {React.createElement(icon, { style: { marginRight: 8 } })}
-    {text}
-  </span>
-);
+import { List } from 'antd';
 
 const Venta = (props) => {
     return(
@@ -22,7 +12,7 @@ const Venta = (props) => {
             onChange: page => {
                 props.getVentasList(page)
             },
-            pageSize: 3,
+            pageSize: 30,
             total: props.totalResults 
             }}
             dataSource={props.data}
@@ -31,15 +21,13 @@ const Venta = (props) => {
                 key={item.cve_venta}
             >
                 <List.Item.Meta
-                    title={<a href={`/venta/${item.cve_venta}`}>Venta {item.cve_venta}</a>}
-                   
+                    title={<a href={`/venta/${item.cve_detalle_venta}`}>Ticket {item.cve_detalle_venta}</a>}                  
                 />
-                <label><b> Fecha: </b></label>{item.fecha}
-                <label><b> Hora: </b></label>{item.hora}<br></br>
-                <label><b> Total: </b></label>{item.total}<br></br>
-                <label><b> Sub Total: </b></label>{item.subtotal}<br></br>
-                <label><b> No. Transaccion: </b></label>{item.num_transaccion}<br></br>
-                <label><b> Cve Cliente: </b> </label>{item.cve_cliente}<br></br>
+                <label><b> Fecha: </b></label>{item.fecha_agendada}
+                <label><b> Hora: </b></label>{item.hora_agendada}<br></br>
+                <label><b> Nombre del servicio: </b></label>{item.nombre_Servicio}<br></br>
+                <label><b> Cantidad: </b></label>{item.cantidad}<br></br>
+                <label><b> Total: </b></label>{item.importe}<br></br>
                 </List.Item>
             )}
         />

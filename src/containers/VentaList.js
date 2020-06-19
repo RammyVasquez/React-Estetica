@@ -11,7 +11,7 @@ class VentaList extends Component {
     }
 
     componentDidMount() {
-      const urlServicio = 'https://apimascotasventas.azurewebsites.net/api/Ventas';
+      const urlServicio = 'https://apimascotasventas.azurewebsites.net/api/DetalleVentas/estetica';
       axios.get(urlServicio)
         .then(res => {
           this.setState({
@@ -22,7 +22,7 @@ class VentaList extends Component {
     }
 
     getVentaList = (page) => {
-      const urlServicio = `https://apimascotasventas.azurewebsites.net/api/Ventas/?page=${page}`;
+      const urlServicio = `https://apimascotasventas.azurewebsites.net/api/DetalleVentas/estetica/?page=${page}`;
       axios.get(urlServicio)
         .then(res => {
           this.setState({
