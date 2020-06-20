@@ -14,7 +14,6 @@ class AgendaList extends Component {
                     <Agenda/>
                 </section>
                 <section>
-                    <h2>Detalles de pago</h2>
                     <Pago/>
                 </section>
             </div>

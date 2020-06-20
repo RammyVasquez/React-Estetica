@@ -35,9 +35,10 @@ class ProductoList extends Component {
     render() {
         return(
           <div>
+            <h3>Listado de productos</h3>
             <Producto data={this.state.productos} totalResults={this.state.totalResults} getProductoList={this.getProductoList}/>
             <hr />
-            <h2>Crear Producto Nuevo</h2>
+            <h3>Crear Producto Nuevo</h3>
             <CustomForm/>
           </div>
         );

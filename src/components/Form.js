@@ -23,7 +23,6 @@ class CustomForm extends Component{
     }
 
     PostSubmit = () => {
-        debugger;
         const nombre = this.state.nombre;
         const stock = this.state.stock;
         const precio = this.state.precio;        
