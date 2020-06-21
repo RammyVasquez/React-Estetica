@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import axios from 'axios';
 import Agenda from '../components/Agenda';
 import Pago from '../components/Pago';
+import FormPago from '../components/FormPago'
 
 class AgendaList extends Component {
 
@@ -14,7 +15,8 @@ class AgendaList extends Component {
                     <Agenda/>
                 </section>
                 <section>
-                    <Pago/>
+                    {/* <Pago/> */}
+                    <FormPago></FormPago>
                 </section>
             </div>
 

@@ -111,10 +111,10 @@ class Agenda extends Component {
                     <FormItem name="transporte" label="Requiere transporte">
                         <Checkbox onChange={this.handleInputChanges} value={this.state.transporte} name="transporte" onClick={trsChange}>Presiona aquí para verificar disponibilidad</Checkbox>
                     </FormItem>
-
+{/* 
                     <h3>Detalles de pago</h3>
-                    <img style={{width: 300}} src={ require('../utils/creditcardicons.png') } />
-
+                    <img style={{width: 300}} src={ require('../utils/creditcardicons.png') } /> */}
+{/* 
                     <FormItem name="numTarjeta" label="Número de tarjeta">
                         <Input onChange={this.handleInputChanges} value={this.state.numTarjeta} name="numTarjeta" type="number"/>
                     </FormItem>
@@ -136,8 +136,8 @@ class Agenda extends Component {
                     </FormItem>
 
                     <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                        <Button onClick={this.postSubmit} href="/agenda" type="primary" shape="round">Agendar cita{/* {this.props.btnText} */}</Button>
-                    </Form.Item>
+                        <Button onClick={this.postSubmit} href="/agenda" type="primary" shape="round">Agendar cita{this.props.btnText} </Button>
+                    </Form.Item> */}
                 </Form>
             </div>           
         );
