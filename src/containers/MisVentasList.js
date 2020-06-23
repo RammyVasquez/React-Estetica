@@ -38,14 +38,8 @@ class MisVentasList extends Component {
         return(
           <div>
             <h2>Mis ventas realizadas</h2>
-            <MisVentas data={this.state.Misventas} totalResults={this.state.totalResults} getMisVentasList={this.getMisVentasList}/>
+            <MisVentas data={this.state.Misventas} totalResults={this.state.totalResults} />
             <hr />
-            {/* <h2>Create a Product</h2> */}
-            {/* <FormServicio 
-              requestType="post"
-              id={null}
-              btnText="Create"
-            /> */}
           </div>
         );
     }
