@@ -10,10 +10,10 @@ const formItemLayout = {
 class CustomForm extends Component{
 
     state = {
+        nombre: "",
         stock: "",
         precio: "",
-        imagen: "",
-        nombre: ""
+        imagen: ""        
     }
 
     handleInputChanges = event => {
@@ -27,6 +27,7 @@ class CustomForm extends Component{
         const stock = this.state.stock;
         const precio = this.state.precio;        
         const imagen = this.state.imagen
+        debugger;
         axios.post('http://estetik.herokuapp.com/api/producto', {
             nombre: nombre,            
             stock: stock,

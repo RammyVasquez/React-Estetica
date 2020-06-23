@@ -14,10 +14,6 @@ class AgendaList extends Component {
                     <h2>Registrar cita nueva</h2>
                     <Agenda/>
                 </section>
-                <section>
-                    {/* <Pago/> */}
-                    <FormPago></FormPago>
-                </section>
             </div>
 
         );

@@ -61,7 +61,7 @@ const CustomLayout = (props) => {
                     {props.children}
                 </div>
                 </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created by Ant RAM</Footer>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2020</Footer>
     </Layout>
   </Layout>
     );

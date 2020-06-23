@@ -1,17 +1,14 @@
-import React, {Component} from 'react'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import axios from 'axios'
-import { Form, Input, Button, TimePicker, Checkbox } from 'antd'
-import FormItem from 'antd/lib/form/FormItem'
-
-function horaChange(time, timeString) {
-    console.log(time, timeString);
-}
-
-function trsChange(e) {
-    console.log(`transporte = ${e.target.checked}`);
-}
+import React, {Component} from 'react';
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
+import { Form, Select } from 'antd';
+import FormItem from 'antd/lib/form/FormItem';
+import FormPago from './FormPago';
+import moment from 'moment';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import nuevasHoras from '../utils/nuevasHoras.json'
 
 const formItemLayout = {
     labelCol: { span: 6 },
@@ -21,33 +18,77 @@ const formItemLayout = {
 class Agenda extends Component {
 
     state = {
-        startDate: new Date(),
+        diaHoy: new Date(),
+        manana: new Date().setDate(new Date().getDate() + 1),
+        hora: 0,
+        horas: [],
+        fecha: null,
         misServicios: [],
-        fecha: "",
-        hora: "",
-        servicio: [],
-        transporte: "",
-        numTarjeta: "",
-        mesTarjeta: "",
-        anioTarjeta: "",
-        cvcTarjeta: "",
-        nombre: ""
+        servicio: null,
+        number: null,
+        name: null,
+        cvc: null,
+        expiry: null,
+        focus: null,
+        agenda: [],
+        fechaFormato: moment(this.fecha).format('YYYY-MM-DD'),
     };
 
-    handleChange = date => {
+    handleFecha = fecha => {
         this.setState({
-            startDate: date
+            fecha: fecha,
+            fechaFormato: moment(fecha).format('YYYY-MM-DD'),
+            hora: null
+        });
+        // this.props.fecha(moment(fecha).format('YYYY-MM-DD'))
+        // this.props.hora(null)
+        this.ObtenerHoras(fecha)
+    };
+
+    handleHora = hora => {
+        this.setState({
+            hora: hora
+        });
+        // this.props.setHora(hora.value)
+    };
+
+    ObtenerDias() {
+        var dias = [];
+        this.state.agenda.map(fecha => {
+            if (new Date(fecha.fecha).getDay() !== 5 && new Date(fecha.fecha).getDay() !== 6)
+                dias.push(new Date(fecha.fecha).setDate(new Date(fecha.fecha).getDate() + 1))
+            return dias;
+        })
+        return dias
+    };
+
+    ObtenerHoras(fecha2) {
+        var horas = [];
+        var horasFecha = this.state.agenda.find(fecha => fecha.fecha === moment(fecha2).format('YYYY-MM-DD'))
+        try{
+            horasFecha.horas.map(hora => (
+                horas.push(hora)
+            ))
+        }
+        catch{
+            JSON.parse(horasFecha.horas).map(hora => (
+                horas.push(hora)
+            ))
+        }
+        
+        this.setState({
+            horas: horas
+        })
+        return horas
+    };
+
+    handleChange = event => {
+        this.setState({
+            fecha: event.target.value
         });
     };
     
-    handleInputChanges = event => {
-        debugger;
-        this.setState({ 
-            [event.target.name]:event.target.value
-        })
-    }
-
-    componentDidMount() {
+    handleServicio = event => {
         const urlServicios = 'http://estetik.herokuapp.com/api/servicio';
         axios.get(urlServicios)
         .then(res => {
@@ -57,88 +98,103 @@ class Agenda extends Component {
         })
     }
 
-    postSubmit = () => {
-        const fecha = this.state.fecha;
-        const hora = this.state.hora;
-        const servicio = this.state.servicio;
-        const transporte = this.state.transporte;
-        const numTarjeta= this.state.numTarjeta;
-        const mesTarjeta= this.state.mesTarjeta;
-        const anioTarjeta= this.state.anioTarjeta;
-        const cvcTarjeta = this.state.cvcTarjeta;
-        const nombre = this.state.nombre;
+    handleInputChange = property => {
+        return e => {
+            this.setState({
+                [property]: e.target.value
+            })
+        }
+    }
+
+    handleInputChanges = event => {
         debugger;
+        this.setState({ 
+            [event.target.name]:event.target.value
+        })
+    }
+
+    componentDidMount() {
+        const urlDisponibilidad = 'http://estetik.herokuapp.com/api/disponibilidad';
+        axios.get(urlDisponibilidad)
+        .then(res => {
+            nuevasHoras['disponibilidad'] = res.data.citas.data
+            this.setState({
+                agenda: res.data.citas.data,
+            })
+        })
+    }
+
+    fechasDisp() {
+
+    }
+
+    postSubmit = () => {
+        const fecha = this.state.fechaFormato;
+        const hora = this.state.hora["value"];
+        const servicio = this.state.servicio;
         axios.post('http://estetik.herokuapp.com/api/cita', {
             fecha: fecha,
             hora: hora,
             servicio: servicio,
-            transporte: transporte,
-            numTarjeta: numTarjeta,
-            mesTarjeta: mesTarjeta,
-            anioTarjeta: anioTarjeta,
-            cvcTarjeta: cvcTarjeta,
-            nombre: nombre
         })
-        .then(res => console.log(res))
-        .catch(error => console.log(error));
+        .then(res => {
+            var fecha = nuevasHoras['disponibilidad'].find(fechasDisp => fechasDisp.fecha === JSON.parse(res.config.data).fecha);
+            fecha.horas = JSON.parse(fecha.horas).filter(hora => hora !== JSON.parse(res.config.data).hora);
+            axios.put('https://estetik.herokuapp.com/api/disponibilidad/' + fecha.id, {horas: fecha.horas})
+            .then(respuesta => console.log(respuesta))
+            .catch(error => {
+                alert("No se pudo actualizar la información");
+                console.log(error);
+            })
+            alert("Pago realizado, vuelva pronto!");
+            window.location.reload();
+        })            
+        .catch(error => {
+            alert("Oops! Algo salió mal al pagar");
+            console.log(error)
+        });
     }
 
     render() {      
         return(
             <div>
                 <Form {...formItemLayout}>
-                    
-                </Form>  
-                <hr/>
-                <Form {...formItemLayout}>
-                <FormItem name="fecha" label="Seleccione una fecha">
-                        <DatePicker
-                            value={this.state.fecha}
-                            onChange={this.handleChange}
-                            name="fecha"
-                            selected={this.state.startDate}
+                    <FormItem name="fecha" label="Seleccione una fecha">
+                        <ReactDatePicker
+                            dateFormat="yyyy/MM/dd"
+                            selected={this.state.fecha}
+                            onChange={this.handleFecha}
+                            includeDates={this.ObtenerDias()}
+                            minDate={this.state.manana}
+                            autoComplete="off"
                         />
                     </FormItem>
 
-                    <FormItem name="hora" label="Seleccione una hora">
-                        <TimePicker name="hora" format="HH:mm" onChange={this.handleInputChanges} value={this.state.hora.toString} />
+                    <FormItem style={{width:"40%"}} label="Seleccione una hora">
+                        <Dropdown                            
+                            options={this.state.horas}
+                            placeholder="Elija hora"
+                            onChange={this.handleHora}
+                            value={this.state.hora}
+                            disabled={this.state.fecha === null ? true : false}
+                        />
                     </FormItem>
 
-                    <FormItem name="servicio" label="Seleccione servicio(s)">
-                        {this.state.misServicios.map((item) => <Checkbox onChange={this.handleInputChanges} name={item.id} value={this.state.nombre} key={item.nombre}>{item.nombre} ${item.precio}</Checkbox>)}                      
+                    <FormItem style={{width:"40%"}} name="servicio" label="Seleccione servicio">
+                        <Select name="servicios"
+                            onClick={this.handleServicio}
+                            onChange={(event) => {this.setState({servicio: event})}} >
+                            {this.state.misServicios.map((item) => <option key={item.nombre} value={this.state.nombre}>{item.nombre} ${item.precio}</option>)}
+                        </Select>
                     </FormItem>
-
-                    <FormItem name="transporte" label="Requiere transporte">
-                        <Checkbox onChange={this.handleInputChanges} value={this.state.transporte} name="transporte" onClick={trsChange}>Presiona aquí para verificar disponibilidad</Checkbox>
-                    </FormItem>
-{/* 
-                    <h3>Detalles de pago</h3>
-                    <img style={{width: 300}} src={ require('../utils/creditcardicons.png') } /> */}
-{/* 
-                    <FormItem name="numTarjeta" label="Número de tarjeta">
-                        <Input onChange={this.handleInputChanges} value={this.state.numTarjeta} name="numTarjeta" type="number"/>
-                    </FormItem>
-
-                    <FormItem name="mesTarjeta" label="Mes">
-                        <Input onChange={this.handleInputChanges} value={this.state.mesTarjeta} name="mesTarjeta" type="number"/>
-                    </FormItem>
-
-                    <FormItem name="anioTarjeta" label="Año">
-                        <Input onChange={this.handleInputChanges} value={this.state.anioTarjeta} name="anioTarjeta" type="number"/>
-                    </FormItem>
-
-                    <FormItem name="cvcTarjeta" label="CVC">
-                        <Input onChange={this.handleInputChanges} value={this.state.cvcTarjeta} name="cvcTarjeta" type="number"/>
-                    </FormItem>
-
-                    <FormItem name="nombre" label="Nombre del propietario">
-                        <Input onChange={this.handleInputChanges} value={this.state.nombre} name="nombre"/>
-                    </FormItem>
-
-                    <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                        <Button onClick={this.postSubmit} href="/agenda" type="primary" shape="round">Agendar cita{this.props.btnText} </Button>
-                    </Form.Item> */}
+                    <FormPago/>
                 </Form>
+                <button
+                    style={{width:150, marginLeft:"250px", marginTop: "20px"}}
+                    type="button"
+                    className="btn btn-success btn-block btn-lg"
+                    onClick={this.postSubmit}                    
+                >Pagar</button>
             </div>           
         );
     }

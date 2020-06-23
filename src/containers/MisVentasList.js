@@ -8,27 +8,28 @@ class MisVentasList extends Component {
 
     state = {
         Misventas: [],
+        total: [],
         totalResults: 0
     }
 
     componentDidMount() {
-      const urlVentas = 'http://estetik.herokuapp.com/api/venta';
+      const urlVentas = 'http://estetik.herokuapp.com/api/cita';
       axios.get(urlVentas)
         .then(res => {
           this.setState({
-            Misventas: res.data.ventas.data,
-            totalResults: res.data.ventas.data.count
+            Misventas: res.data.citas.data,
+            totalResults: res.data.citas.data.count
           })
       })
     }
 
     getMisVentasList = (page) => {
-      const urlVentas = `http://estetik.herokuapp.com/api/venta/?page=${page}`;
+      const urlVentas = `http://estetik.herokuapp.com/api/cita/?page=${page}`;
       axios.get(urlVentas)
         .then(res => {
           this.setState({
-            Misventas: res.data.ventas.data,
-            totalResults: res.data.ventas.data.count
+            Misventas: res.data.citas.data,
+            totalResults: res.data.citas.data.count
           })
       })
     }

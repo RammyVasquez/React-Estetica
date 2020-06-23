@@ -23,11 +23,11 @@ const Venta = (props) => {
                 <List.Item.Meta
                     title={<a href={`/venta/${item.cve_detalle_venta}`}>Ticket {item.cve_detalle_venta}</a>}                  
                 />
-                <label><b> Fecha: </b></label>{item.fecha_agendada}
-                <label><b> Hora: </b></label>{item.hora_agendada}<br></br>
-                <label><b> Nombre del servicio: </b></label>{item.nombre_Servicio}<br></br>
-                <label><b> Cantidad: </b></label>{item.cantidad}<br></br>
-                <label><b> Total: </b></label>{item.importe}<br></br>
+                <label><b> Fecha: </b></label> {item.fecha_agendada}<br></br>
+                <label><b> Hora: </b></label> {item.hora_agendada}<br></br>
+                <label><b> Nombre del servicio: </b></label> {item.nombre_Servicio}<br></br>
+                <label><b> Cantidad: </b></label> {item.cantidad}<br></br>
+                <label><b> Total: </b></label> ${item.importe}<br></br>
                 </List.Item>
             )}
         />

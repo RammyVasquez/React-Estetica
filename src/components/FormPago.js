@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css'
+import Agenda from './Agenda'
+import axios from 'axios';
 
 const FormPago = () => {
 
@@ -34,10 +36,10 @@ const FormPago = () => {
         console.log("cvc => " , state.cvc)
         alert(JSON.stringify(state))
     }
-
+    
     return (
-        <div className="card" >
-            <div className="card-body">
+        <div className="card" style={{width:750}}>
+            <div className="card-body" style={{display:"flex", flexDirection:"row"}}>
                 <Cards
                     cvc={state.cvc}
                     expiry={state.expiry}
@@ -45,21 +47,19 @@ const FormPago = () => {
                     name={state.name}
                     number={state.number}
                 />
-                <form>
+                <form style={{marginTop:20, marginLeft:20}}>
                     <div className="form-group">
-                        <label htmlFor="number">Número de la tarjeta</label>
                         <input
                             type="number"
                             className="form-control"
                             name="number"
-                            maxLength="16"
+                            maxlength="16"
                             placeholder="Número de tarjeta"
                             onChange={handleChange}
                             onFocus={handleFocus}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Nombre">Nombre</label>
                         <input
                             type="text"
                             className="form-control"
@@ -72,9 +72,8 @@ const FormPago = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="expiry">Vencimiento</label>
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="expiry"
                                 maxLength="4"
@@ -84,9 +83,8 @@ const FormPago = () => {
                             />
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="cvc">CVC</label>
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="cvc"
                                 maxLength="4"
@@ -96,11 +94,12 @@ const FormPago = () => {
                             />
                         </div>
                     </div>
-                    <button
+                    {/* <button
+                        style={{width:150}}
                         type="button"
                         className="btn btn-success btn-block btn-lg"
                         onClick={submitPayment}
-                    >Pagar</button>
+                    >Pagar</button> */}
                 </form>
             </div>
         </div>

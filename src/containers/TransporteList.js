@@ -11,7 +11,7 @@ class TransporteList extends Component {
     }
 
     componentDidMount() {
-      const urlTransporte = 'http://189.173.28.254:8000/api/catalago';
+      const urlTransporte = 'http://189.173.189.133:8000/api/catalago';
       axios.get(urlTransporte)
         .then(res => {
           this.setState({
@@ -22,7 +22,7 @@ class TransporteList extends Component {
     }
 
     getTransporteList = (page) => {
-      const urlTransporte = `http://189.173.28.254:8000/api/catalago/?page=${page}`;
+      const urlTransporte = `http://189.173.189.133:8000/api/catalago/?page=${page}`;
       axios.get(urlTransporte)
         .then(res => {
           this.setState({

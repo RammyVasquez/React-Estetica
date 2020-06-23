@@ -6,8 +6,8 @@ import Venta from '../components/Venta';
 class VentaList extends Component {
 
     state = {
-        ventas: [],
-        totalResults: 0
+      ventas: [],
+      totalResults: 0
     }
 
     componentDidMount() {
